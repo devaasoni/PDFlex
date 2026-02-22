@@ -1,0 +1,702 @@
+/* =========================================
+   UNIQUE MODERN "TECH STUDIO" DESIGN
+   ========================================= */
+:root {
+    --bg-main: #f3f4f6;
+    --bg-card: #ffffff;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --brand-color: #4f46e5; 
+    --brand-hover: #4338ca;
+    --brand-light: #e0e7ff;
+    --border-light: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 12px; 
+    /* NEW: Variables for dynamic zones */
+    --upload-bg: #eef2ff; 
+    --upload-border: #a5b4fc;
+    --overlay-bg: rgba(255, 255, 255, 0.8);
+    --success-bg: #d1fae5;
+}
+
+/* --- DARK MODE THEME OVERRIDES --- */
+body.dark-mode {
+    --bg-main: #111827; 
+    --bg-card: #1f2937; 
+    --text-dark: #f9fafb; 
+    --text-muted: #9ca3af; 
+    --brand-color: #6366f1; 
+    --brand-hover: #818cf8;
+    --brand-light: rgba(99, 102, 241, 0.15); 
+    --border-light: #374151; 
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    /* NEW: Variables for dynamic zones */
+    --upload-bg: rgba(99, 102, 241, 0.05); 
+    --upload-border: #4f46e5;
+    --overlay-bg: rgba(17, 24, 39, 0.8);
+    --success-bg: rgba(16, 185, 129, 0.15);
+}
+
+/* Add a smooth color transition to all major UI elements */
+body, .navbar, .tool-card, .workspace-card, .upload-zone, .text-input, .filter-btn, .file-preview-badge {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- NAVBAR & BREADCRUMBS --- */
+/* --- NAVBAR & BREADCRUMBS --- */
+.navbar {
+    /* Glassmorphism Effect */
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
+    backdrop-filter: blur(12px); /* The frosted glass blur */
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Softer shadow */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ensure Dark Mode gets a transparent dark background for the blur */
+body.dark-mode .navbar {
+    background-color: rgba(31, 41, 55, 0.85); 
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-dark);
+    letter-spacing: -0.02em; /* Makes it look slightly more modern */
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Perfect circle */
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    color: var(--text-dark);
+}
+
+.theme-btn:hover {
+    background-color: var(--border-light);
+    transform: scale(1.05);
+}
+
+/* --- LIVE SEARCH BAR --- */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    pointer-events: none; /* Lets clicks pass through to the input */
+}
+
+.search-input {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-light);
+    color: var(--text-dark);
+    padding: 8px 15px 8px 35px; /* Extra padding on the left for the icon */
+    border-radius: 50px; /* Pill shape */
+    font-size: 0.9rem;
+    width: 200px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--brand-color);
+    box-shadow: 0 0 0 3px var(--brand-light);
+    width: 250px; /* Expands smoothly when clicked! */
+}
+
+.breadcrumb {
+    width: 100%;
+    max-width: 1100px; 
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    /* NEW: Aligns the back button and the text trail side-by-side */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* NEW: Go Back Button Styling */
+.back-btn {
+    background-color: var(--bg-card);
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.back-btn:hover {
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+    background-color: var(--brand-light);
+    transform: translateX(-2px); /* Slides slightly left on hover! */
+}
+
+.bc-link {
+    color: var(--brand-color);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.bc-link:hover {
+    color: var(--brand-hover);
+    text-decoration: underline;
+}
+
+.bc-sep {
+    margin: 0 8px;
+    color: #9ca3af;
+}
+
+.bc-active {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* --- MAIN CONTENT & TYPOGRAPHY --- */
+.main-content {
+    flex: 1;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+.header-text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-text h1 {
+    font-size: 1.8rem; /* Made smaller & cleaner */
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+}
+
+.header-text p {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- CATEGORY FILTERS (PILLS) --- */
+.category-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    border: 1px solid var(--border-light);
+    padding: 8px 20px;
+    border-radius: 50px; /* Pill shape */
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--brand-color);
+    color: var(--brand-color);
+}
+
+.filter-btn.active {
+    background-color: var(--text-dark);
+    color: var(--bg-main); 
+    border-color: var(--text-dark);
+}
+
+/* --- THE GRID DASHBOARD --- */
+.grid-container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.tool-card {
+    background-color: var(--bg-card);
+    padding: 30px 25px;
+    border-radius: var(--radius);
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid var(--border-light);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tool-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--brand-light);
+}
+
+.tool-icon {
+    font-size: 2.5rem; /* Slightly smaller icons */
+    margin-bottom: 15px;
+}
+
+.tool-card h3 {
+    font-size: 1.1rem; /* Smaller heading */
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.tool-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* --- THE WORKSPACE VIEW --- */
+.workspace-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    animation: fadeIn 0.4s ease;
+}
+
+.workspace-card {
+    background-color: var(--bg-card);
+    width: 100%;
+    padding: 50px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.workspace-header {
+    margin-bottom: 40px;
+}
+
+.workspace-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.workspace-header p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.tool-panel {
+    display: none;
+}
+
+.tool-panel.active {
+    display: block;
+}
+
+/* --- INPUTS & BUTTONS --- */
+.upload-zone {
+    background-color: var(--upload-bg);
+    border: 2px dashed var(--upload-border);
+    padding: 40px 20px;
+    border-radius: var(--radius);
+    transition: 0.3s;
+    max-width: 700px;
+    margin: 0 auto 25px auto; 
+}
+
+.upload-zone:hover {
+    background-color: var(--brand-light);
+    border-color: var(--brand-color);
+}
+
+.file-input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.file-input::file-selector-button {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-light);
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 15px;
+    transition: 0.2s;
+    color: var(--text-dark);
+}
+
+.file-input::file-selector-button:hover {
+    background-color: var(--bg-main);
+}
+
+.settings-row {
+    /* NEW: Constrain the width and center it */
+    max-width: 700px;
+    margin: 0 auto 25px auto;
+}
+
+.text-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background-color: var(--bg-main);
+    color: var(--text-dark); /* <--- THIS FIXES INVISIBLE TEXT IN DARK MODE */
+    outline: none;
+    transition: border 0.2s;
+}
+
+.text-input:focus {
+    border-color: var(--brand-color);
+}
+
+.action-btn {
+    background-color: var(--brand-color);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: 0.2s;
+    /* NEW: Limit the button width and center it */
+    width: 100%;
+    max-width: 350px; 
+    display: block;
+    margin: 0 auto;
+}
+
+.action-btn:hover {
+    background-color: var(--brand-hover);
+    transform: scale(0.98);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- DRAG & DROP STATES & FILE PREVIEW --- */
+.upload-zone.dragover {
+    background-color: var(--success-bg);
+    border-color: #10b981; 
+    transform: scale(1.02);
+}
+
+.file-preview-badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--brand-light);
+    border: 1px solid var(--brand-color);
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    margin-top: 15px;
+    color: var(--brand-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.file-preview-badge .file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: transform 0.2s;
+}
+
+.remove-file-btn:hover {
+    transform: scale(1.2);
+}
+
+/* --- ORGANIZE PDF DRAG & DROP UI (UPDATED FOR THUMBNAILS) --- */
+.drag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Increased gap */
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.drag-page {
+    width: 200px;  /* Increased from 120px */
+    height: 280px; /* Increased from 160px */
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem; /* Slightly larger text */
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    overflow: hidden; 
+    position: relative;
+}
+
+.drag-page img {
+    width: 100%;
+    height: 235px; /* Increased from 130px */
+    object-fit: cover;
+    object-position: top; 
+    border-bottom: 1px solid var(--border-light);
+    pointer-events: none; 
+}
+
+.drag-page span {
+    padding: 10px 0; /* More padding for bigger card */
+    width: 100%;
+    text-align: center;
+    background: var(--bg-main);
+}
+
+.drag-page:active {
+    cursor: grabbing;
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.drag-page.drag-over {
+    border-color: var(--brand-color);
+    border-style: dashed;
+    transform: scale(1.05);
+}
+
+/* --- EDIT PDF INTERACTIVE CANVAS --- */
+/* Add background-color: white; to ensure the paper stays white in dark mode */
+#pdf-canvas-wrapper {
+    background-color: white; 
+}
+
+.pdf-text-layer {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px dashed var(--brand-color);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px; /* Visual font size on canvas */
+    color: black;
+    padding: 2px 4px;
+    outline: none;
+    min-width: 20px;
+    min-height: 24px;
+    white-space: pre;
+    z-index: 10;
+    cursor: text;
+    border-radius: 2px;
+}
+
+.pdf-text-layer:empty:before {
+    content: 'Type here...';
+    color: #999;
+}
+
+.pdf-text-layer:focus {
+    background: white;
+    border-style: solid;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* --- LOADING OVERLAY --- */
+#loading-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--overlay-bg); /* <--- BLURS DARK OR LIGHT CORRECTLY */
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px; height: 50px;
+    border: 5px solid var(--brand-light);
+    border-top-color: var(--brand-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+#loading-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* --- TOAST NOTIFICATIONS --- */
+#toast-container {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10000;
+}
+
+.toast {
+    min-width: 250px;
+    background-color: var(--text-dark);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+    transform: translateX(120%);
+    opacity: 0;
+    animation: slideIn 0.3s forwards;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast.error { background-color: #ef4444; }
+.toast.success { background-color: #10b981; }
+
+@keyframes slideIn {
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateY(10px); }
+}
+
+/* =========================================
+   FOOTER & PRIVACY BADGE
+   ========================================= */
+.app-footer {
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: auto; /* Magically pushes the footer to the bottom of the screen */
+    border-top: 1px solid var(--border-light);
+    background-color: var(--bg-card);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.security-notice {
+    color: #10b981; /* Trustworthy emerald green */
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.credit-line {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.credit-line strong {
+    color: var(--text-dark); /* Makes your name pop */
+}
+
+/* Ensure the green stays bright and readable in Dark Mode */
+body.dark-mode .security-notice {
+    color: #34d399; 
+}

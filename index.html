@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDFlex</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">📄</span> <span class="brand-text">PDFlex</span>
+        </div>
+        
+        <div class="nav-actions">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="tool-search" placeholder="Search tools..." class="search-input">
+            </div>
+            
+            <button id="theme-toggle" class="theme-btn" title="Toggle Dark Mode">🌙</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div id="breadcrumb" class="breadcrumb hidden">
+            <button id="back-btn" class="back-btn">&larr; Back</button>
+            
+            <div class="bc-trail">
+                <span id="bc-home" class="bc-link">Home</span> 
+                <span class="bc-sep">/</span> 
+                <span id="bc-category" class="bc-text">Category</span> 
+                <span class="bc-sep">/</span> 
+                <span id="bc-tool" class="bc-active">Tool</span>
+            </div>
+        </div>
+
+        <div id="grid-view" class="grid-container">
+            <div class="header-text">
+                <h1>Everything you need to master your PDFs</h1>
+                <p>Secure, lightning-fast, and 100% offline tools.</p>
+            </div>
+            
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="organize">Organize</button>
+                <button class="filter-btn" data-filter="edit">Edit</button>
+                <button class="filter-btn" data-filter="convert">Convert</button>
+                <button class="filter-btn" data-filter="security">Security</button>
+                <button class="filter-btn" data-filter="optimize">Optimize</button>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card" data-target="panel-edit" data-category="edit">
+                    <div class="tool-icon">✍️</div>
+                    <h3>Edit PDF</h3>
+                    <p>Add text directly onto your PDF page with an interactive canvas editor.</p>
+                </div>
+                <div class="tool-card" data-target="panel-organize" data-category="organize">
+                    <div class="tool-icon">🗂️</div>
+                    <h3>Organize PDF</h3>
+                    <p>Sort, reorder, and organize your PDF pages with a simple drag-and-drop interface.</p>
+                </div>
+                <div class="tool-card" data-target="panel-pdf2img" data-category="convert">
+                    <div class="tool-icon">🖼️</div>
+                    <h3>PDF to Image</h3>
+                    <p>Convert each PDF page into a high-quality JPG image.</p>
+                </div>
+                <div class="tool-card" data-target="panel-pdf2word" data-category="convert">
+                    <div class="tool-icon">📝</div>
+                    <h3>PDF to Word</h3>
+                    <p>Convert your PDF files into editable Word documents (.docx).</p>
+                </div>
+                <div class="tool-card" data-target="panel-unlock" data-category="security">
+                    <div class="tool-icon">🔓</div>
+                    <h3>Unlock PDF</h3>
+                    <p>Remove PDF password security to use your PDFs as you want.</p>
+                </div>
+                <div class="tool-card" data-target="panel-protect" data-category="security">
+                    <div class="tool-icon">🔐</div>
+                    <h3>Protect PDF</h3>
+                    <p>Encrypt your PDF with a password to prevent unauthorized access.</p>
+                </div>
+                <div class="tool-card" data-target="panel-compress" data-category="optimize">
+                    <div class="tool-icon">📉</div>
+                    <h3>Compress PDF</h3>
+                    <p>Reduce the file size of your PDF while optimizing for maximal quality.</p>
+                </div>
+                <div class="tool-card" data-target="panel-ocr" data-category="convert">
+                    <div class="tool-icon">🔍</div>
+                    <h3>OCR PDF</h3>
+                    <p>Convert scanned PDFs into searchable and editable text files.</p>
+                </div>
+                <div class="tool-card" data-target="panel-merge" data-category="organize">
+                    <div class="tool-icon">🔗</div>
+                    <h3>Merge PDF</h3>
+                    <p>Combine PDFs in the order you want with the easiest PDF merger available.</p>
+                </div>
+                <div class="tool-card" data-target="panel-extract" data-category="organize">
+                    <div class="tool-icon">✂️</div>
+                    <h3>Extract Pages</h3>
+                    <p>Pull out a single page or a range of pages from a large document.</p>
+                </div>
+                <div class="tool-card" data-target="panel-delete" data-category="edit">
+                    <div class="tool-icon">🗑️</div>
+                    <h3>Remove Pages</h3>
+                    <p>Delete blank pages or unwanted sheets from your document.</p>
+                </div>
+                <div class="tool-card" data-target="panel-rotate" data-category="organize">
+                    <div class="tool-icon">🔄</div>
+                    <h3>Rotate PDF</h3>
+                    <p>Rotate your PDFs the way you need them. You can even rotate multiple pages.</p>
+                </div>
+                <div class="tool-card" data-target="panel-watermark" data-category="security">
+                    <div class="tool-icon">©️</div>
+                    <h3>Watermark</h3>
+                    <p>Stamp an image or text over your PDF in seconds.</p>
+                </div>
+                <div class="tool-card" data-target="panel-img2pdf" data-category="convert">
+                    <div class="tool-icon">🖼️</div>
+                    <h3>Image to PDF</h3>
+                    <p>Convert JPG or PNG images to PDF files easily.</p>
+                </div>
+                <div class="tool-card" data-target="panel-pagenum" data-category="organize">
+                    <div class="tool-icon">🔢</div>
+                    <h3>Page Numbers</h3>
+                    <p>Add page numbers into PDFs with ease. Choose your positions, dimensions, typography.</p>
+                </div>
+                <div class="tool-card" data-target="panel-insert" data-category="edit">
+                    <div class="tool-icon">📄</div>
+                    <h3>Insert Blank Page</h3>
+                    <p>Add a blank page anywhere in your document for easy formatting.</p>
+                </div>
+                <div class="tool-card" data-target="panel-metadata" data-category="security">
+                    <div class="tool-icon">🏷️</div>
+                    <h3>Edit Metadata</h3>
+                    <p>Change the hidden title, author, and creator properties of your document.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="workspace-view" class="workspace-container hidden">
+            <div class="workspace-card">
+
+                <div class="tool-panel" id="panel-edit">
+                    <div class="workspace-header">
+                        <h2>Edit PDF</h2>
+                        <p>Click anywhere on the document to add text.</p>
+                    </div>
+                
+                    <div class="upload-zone" id="edit-upload-zone">
+                        <input type="file" id="pdf-edit-input" accept=".pdf" class="file-input">
+                    </div>
+                
+                    <div id="edit-workspace" class="hidden">
+                        <div class="settings-row"
+                            style="display: flex; justify-content: space-between; align-items: center; max-width: 700px; margin: 0 auto 15px auto;">
+                            <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
+                                <strong>Interactive Canvas:</strong> Click anywhere to type.
+                            </p>
+                
+                            <div id="edit-pagination" style="display: flex; gap: 10px; align-items: center;">
+                                <button id="prev-edit-page" class="nav-btn"
+                                    style="border: 1px solid var(--border-light); background: white;">&larr; Prev</button>
+                                <span id="edit-page-indicator" style="font-weight: bold; font-size: 0.9rem;">Page 1 / 1</span>
+                                <button id="next-edit-page" class="nav-btn"
+                                    style="border: 1px solid var(--border-light); background: white;">Next &rarr;</button>
+                            </div>
+                        </div>
+                
+                        <div id="pdf-canvas-wrapper"
+                            style="position: relative; display: inline-block; box-shadow: var(--shadow-md); border: 1px solid var(--border-light); cursor: text; margin-bottom: 20px;">
+                            <canvas id="pdf-edit-canvas"></canvas>
+                        </div>
+                
+                        <button class="action-btn" id="save-edit-btn">Save Edited PDF</button>
+                    </div>
+                </div>
+                
+                <div class="tool-panel" id="panel-organize">
+                    <div class="workspace-header">
+                        <h2>Organize PDF</h2>
+                        <p>Drag and drop the page blocks to reorder them.</p>
+                    </div>
+                
+                    <div class="upload-zone" id="organize-upload-zone">
+                        <input type="file" id="pdf-organize-input" accept=".pdf" class="file-input">
+                    </div>
+                
+                    <div id="organize-workspace" class="hidden">
+                        <p style="margin-bottom: 15px; color: var(--text-muted); font-size: 0.95rem;">
+                            Click and drag the pages below to change their order:
+                        </p>
+                
+                        <div id="drag-container" class="drag-container"></div>
+                
+                        <button class="action-btn" id="organize-btn" style="margin-top: 30px;">Save New Order</button>
+                    </div>
+                </div>
+
+                <div class="tool-panel" id="panel-pdf2img">
+                    <div class="workspace-header">
+                        <h2>PDF to Image</h2>
+                        <p>Extract pages as images from your PDF document.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-to-img-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <select id="img-format" class="text-input">
+                            <option value="jpeg">JPG / JPEG Quality</option>
+                            <option value="png">PNG (Best for text/transparency)</option>
+                        </select>
+                    </div>
+                    <button class="action-btn" id="pdf2img-btn">Convert to Image</button>
+                </div>
+
+                <div class="tool-panel" id="panel-pdf2word">
+                    <div class="workspace-header">
+                        <h2>PDF to Word</h2>
+                        <p>Convert your PDF into an editable Word Document (.docx).</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-word-input" accept=".pdf" class="file-input">
+                    </div>
+                    <button class="action-btn" id="pdf2word-btn">Convert to Word</button>
+                </div>
+
+                <div class="tool-panel" id="panel-unlock">
+                    <div class="workspace-header">
+                        <h2>Unlock PDF</h2>
+                        <p>Remove password protection from your document.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-unlock-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <input type="password" id="unlock-password" placeholder="Enter the document's current password"
+                            class="text-input">
+                    </div>
+                    <button class="action-btn" id="unlock-btn">Unlock PDF</button>
+                </div>
+
+                <div class="tool-panel" id="panel-protect">
+                    <div class="workspace-header">
+                        <h2>Protect PDF file</h2>
+                        <p>Encrypt your PDF with a password to restrict access and editing.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-protect-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <input type="password" id="protect-password" placeholder="Choose a secure password" class="text-input">
+                    </div>
+                    <button class="action-btn" id="protect-btn">Protect PDF</button>
+                </div>
+
+                <div class="tool-panel" id="panel-compress">
+                    <div class="workspace-header">
+                        <h2>Compress PDF</h2>
+                        <p>Shrink your PDF file size without losing quality.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-compress-input" accept=".pdf" class="file-input">
+                    </div>
+                    <button class="action-btn" id="compress-btn">Compress PDF</button>
+                </div>
+
+                <div class="tool-panel" id="panel-ocr">
+                    <div class="workspace-header">
+                        <h2>OCR PDF</h2>
+                        <p>Extract all text from a scanned document into a TXT file.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-ocr-input" accept=".pdf" class="file-input">
+                    </div>
+                    <button class="action-btn" id="ocr-btn">Extract Text</button>
+                </div>
+                
+                <div class="tool-panel" id="panel-merge">
+                    <div class="workspace-header">
+                        <h2>Merge PDF files</h2>
+                        <p>Combine multiple PDFs into a single document.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-merge-input" accept=".pdf" class="file-input" multiple>
+                    </div>
+                    <button class="action-btn" id="merge-btn">Merge All PDFs</button>
+                </div>
+
+                <div class="tool-panel" id="panel-extract">
+                    <div class="workspace-header">
+                        <h2>Extract PDF pages</h2>
+                        <p>Get a new document containing only the pages you need.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-split-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <input type="text" id="page-to-extract" placeholder="Page Number OR Range (e.g. 1 or 2-5)" class="text-input">
+                    </div>
+                    <button class="action-btn" id="split-btn">Extract Pages</button>
+                </div>
+
+                <div class="tool-panel" id="panel-delete">
+                    <div class="workspace-header">
+                        <h2>Remove pages</h2>
+                        <p>Get rid of pages you don't need in your document.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-delete-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <input type="number" id="page-to-delete" placeholder="Page number to delete" class="text-input">
+                    </div>
+                    <button class="action-btn" id="delete-btn">Remove Page</button>
+                </div>
+
+                <div class="tool-panel" id="panel-rotate">
+                    <div class="workspace-header">
+                        <h2>Rotate PDF</h2>
+                        <p>Rotate your PDFs the way you need them.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-rotate-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <select id="rotate-degrees" class="text-input">
+                            <option value="90">Rotate 90° Clockwise</option>
+                            <option value="180">Rotate 180° (Upside Down)</option>
+                            <option value="270">Rotate 90° Counter-Clockwise</option>
+                        </select>
+                    </div>
+                    <button class="action-btn" id="rotate-btn">Rotate PDF</button>
+                </div>
+
+                <div class="tool-panel" id="panel-watermark">
+                    <div class="workspace-header">
+                        <h2>Add Watermark</h2>
+                        <p>Stamp text over your PDF in seconds.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-watermark-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <input type="text" id="watermark-text" placeholder="Watermark text (e.g., CONFIDENTIAL)" class="text-input">
+                    </div>
+                    <button class="action-btn" id="watermark-btn">Add Watermark</button>
+                </div>
+
+                <div class="tool-panel" id="panel-img2pdf">
+                    <div class="workspace-header">
+                        <h2>Image to PDF</h2>
+                        <p>Convert JPG or PNG images to PDF files easily.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="image-input" accept="image/png, image/jpeg" class="file-input">
+                    </div>
+                    <button class="action-btn" id="img-to-pdf-btn">Convert to PDF</button>
+                </div>
+
+                <div class="tool-panel" id="panel-pagenum">
+                    <div class="workspace-header">
+                        <h2>Add Page Numbers</h2>
+                        <p>Add page numbers into PDFs with ease.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-pagenum-input" accept=".pdf" class="file-input">
+                    </div>
+                    <button class="action-btn" id="pagenum-btn">Add Numbers</button>
+                </div>
+
+                <div class="tool-panel" id="panel-insert">
+                    <div class="workspace-header">
+                        <h2>Insert Blank Page</h2>
+                        <p>Add a blank page anywhere in your document.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-insert-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row">
+                        <input type="number" id="insert-index" placeholder="Insert AFTER page (e.g. 1)" class="text-input">
+                    </div>
+                    <button class="action-btn" id="insert-btn">Insert Page</button>
+                </div>
+
+                <div class="tool-panel" id="panel-metadata">
+                    <div class="workspace-header">
+                        <h2>Edit Metadata</h2>
+                        <p>Change the hidden properties of your document.</p>
+                    </div>
+                    <div class="upload-zone">
+                        <input type="file" id="pdf-meta-input" accept=".pdf" class="file-input">
+                    </div>
+                    <div class="settings-row" style="display: flex; gap: 10px;">
+                        <input type="text" id="meta-title" placeholder="Document Title" class="text-input">
+                        <input type="text" id="meta-author" placeholder="Author Name" class="text-input">
+                    </div>
+                    <button class="action-btn" id="meta-btn">Update Metadata</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p class="security-notice">
+                🔒 <strong>100% Secure & Private:</strong> Your files are processed locally or instantly deleted. Absolutely no data is stored or kept on any server.
+            </p>
+            <p class="credit-line">
+                Crafted with an uncompromising commitment to privacy by <strong>Devaa Soni</strong>
+            </p>
+        </div>
+    </footer>
+
+    <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <p id="loading-text">Processing document...</p>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        // Register the Service Worker to enable offline mode and PWA installation
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker Registered! App is ready for offline use.'))
+                    .catch(err => console.error('Service Worker Registration Failed!', err));
+            });
+        }
+    </script>
+</body>
+</html>
