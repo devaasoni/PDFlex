@@ -521,7 +521,7 @@ document.getElementById('unlock-btn').addEventListener('click', async () => {
 
     try {
         // 2. Send it to our local Python server
-        const response = await fetch('http://127.0.0.1:5000/unlock', {
+        const response = await fetch('https://pdflex-vnyj.onrender.com/unlock', {
             method: 'POST',
             body: formData
         });
@@ -553,7 +553,7 @@ document.getElementById('protect-btn').addEventListener('click', async () => {
     formData.append('password', password);
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/protect', {
+        const response = await fetch('https://pdflex-vnyj.onrender.com/protect', {
             method: 'POST',
             body: formData
         });
@@ -590,7 +590,7 @@ document.getElementById('compress-btn').addEventListener('click', async () => {
     formData.append('file', file);
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/compress', {
+        const response = await fetch('https://pdflex-vnyj.onrender.com/compress', {
             method: 'POST',
             body: formData
         });
@@ -652,7 +652,7 @@ document.getElementById('ocr-btn').addEventListener('click', async () => {
     formData.append('file', fileInput);
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/ocr', {
+        const response = await fetch('https://pdflex-vnyj.onrender.com/ocr', {
             method: 'POST',
             body: formData
         });
@@ -692,7 +692,7 @@ document.getElementById('pdf2img-btn').addEventListener('click', async () => {
     formData.append('format', formatChoice); // Send format choice to Python
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/pdf-to-img', {
+        const response = await fetch('https://pdflex-vnyj.onrender.com/pdf-to-img', {
             method: 'POST',
             body: formData
         });
@@ -1045,7 +1045,7 @@ document.getElementById('pdf2word-btn')?.addEventListener('click', async () => {
     formData.append('file', file);
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/pdf-to-word', {
+        const response = await fetch('https://pdflex-vnyj.onrender.com/pdf-to-word', {
             method: 'POST',
             body: formData
         });
