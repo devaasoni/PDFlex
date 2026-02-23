@@ -94,6 +94,17 @@ body.dark-mode .navbar {
     letter-spacing: -0.02em; /* Makes it look slightly more modern */
 }
 
+.brand-img {
+    height: 60px; /* Adjust this number to make the logo larger or smaller */
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+.brand-img:hover {
+    transform: scale(1.02); /* Adds a tiny, modern "pop" when hovered */
+}
+
 .nav-actions {
     display: flex;
     align-items: center;
